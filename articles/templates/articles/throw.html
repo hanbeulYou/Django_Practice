@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Throw</h1>
+  <!--GET은 정보 요청해서 가져올때만 사용 <-> POST(인증 등)-->
+  <form action="/articles/catch/" method="GET">
+    <!--for이랑 id랑 짝꿍-->
+    <label for="throw message">message : </label>
+    <!--name이라는 곳(key)에 값(value)이 들어갈거임-->
+    <input type="text" id="throw message" name="message" placeholder="message">
+    <!--받은 값 보내기-->
+    <input type="submit">
+  </form>
+{% endblock content %}
