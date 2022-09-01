@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ article.pk }}번째 글</h2>
+  <hr>
+  <p>제목 : {{ article.title }}</p>
+  <p>내용 : {{ article.content }}</p>
+  <p>{{ article.create_at }}</p>
+  <p>{{ article.update_at }}</p>
+  <a href="{% url 'articles:index' %}" class="btn btn-primary">Back to Index</a>
+{% endblock content %}

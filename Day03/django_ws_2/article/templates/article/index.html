@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class='d-flex justify-content-center'><h1>articles</h1></div>
+  <a href={% url 'article:new' %}>new</a>
+  <hr>
+
+  {% for article in articles %}
+  <p>글 번호 : {{ article.id }}</p>
+  <p>글 제목 : {{ article.title }}</p>
+  <p>글 내용 : {{ article.content }}</p>
+  <a href={% url 'article:index' %}>index</a>
+  <hr>
+  {% endfor %}
+{% endblock content %}
