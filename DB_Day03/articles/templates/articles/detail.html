@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="vertical">
+    <div class="content__title"><h1>{{ article.title }}</h1></div>
+    
+    {% comment "" %}
+    <p>BLUE : {{ cnt_blue }}개의 댓글이 있습니다. {{ per_blue }}%</p>
+    <p>RED : {{ cnt_red }}개의 댓글이 있습니다. {{ per_red }}%</p>
+    {% endcomment %}
+    <div class="progress">
+      <div class="progress__name">
+        <div class="progress__blue">{{ article.issue_a }}</div>
+        <div class="progress__red">{{ article.issue_b }}</div>
+      </div>
+      <div class="progress__bar">
+        {% if per_blue == 0 and per_red == 0 %}
+        <progress id="progress" value="50" min="0" max="100"></progress>
+        {% else %}
+        <progress id="progress" value={{ per_blue }} min="0" max="100"></progress>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="content__progress"></div>
+    <div class="content__comment">
+      <div class="comment__form">
+        <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+          {% csrf_token %}
+          {{ comment_form }}
+          <input type="submit">
+        </form>
+      </div>
+      <div class="comment__list"></div>
+    </div>
+    
+    {% comment "" %}
+    <form action="{% url 'articles:delete' article.pk %}" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="DELETE">
+    </form>
+    <a href="{% url 'articles:index' %}">뒤로가기</a>
+    {% endcomment %}
+    <h4>댓글 목록</h4>
+    <ul>
+      {% for comment in comments %}
+        {% if comment.pick == 'BL' %}        
+        <li><div class="bluebox">{{ comment.content }}</div></li>
+        {% else %}
+        <li><div class="redbox">{{ comment.content }}</div></li>
+        {% endif %}
+      {% empty %}
+        <li>댓글이 없어요...</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% endblock content %}
